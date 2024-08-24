@@ -1,0 +1,150 @@
+*{
+    box-sizing: border-box;
+   
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   height: 100vh;
+   background-image: url(back.jpg);
+   background-size: cover;
+   background-position: center;
+}
+
+
+.countdown{
+    display: flex;
+    gap: 30px;
+    font-family: sans-serif;
+}
+.time-section{  /*for identifying if its seconds or hours or minutes*/
+    text-align: center;
+    font-size: 30px;
+}
+.time-group{ /*has like the two time segments*/
+   display: flex; 
+   gap: 10px;
+}
+.time-segment{  /* has like the display and the overlay*/
+    display: block;
+    font-size: 100px;
+    font-weight: 900;
+    width: 100px;
+}
+
+
+.segment-display{
+    position: relative;
+    height:100% ;
+}
+.segment-display-top, .segment-display-bottom{
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    height: 50%;
+    position: relative;
+}
+.segment-display-top{
+    background-color: #111;
+    color: #eee;
+    line-height: 1.5;
+}
+.segment-display-bottom{
+    background-color: #111;
+    color: #fff;
+    line-height: 0; /*upper part is not visible at all*/
+}
+
+
+.segment-overlay{ /*when a div doesnt have a definte height it might collapse*/
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100px;
+    perspective: 400px;/*because overlay is going to be animated*/
+}
+.segment-overlay-top,
+.segment-overlay-bottom
+{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    height: 50%;
+}
+.segment-overlay-top{
+    top: 0;
+    line-height: 1.5;
+    color: #eee;
+    background-color: #111; /* makes the segement display not to be seen...
+    if you remove the back color you can see the segement display contenets*/
+    transform-origin: bottom;
+}
+.segment-overlay-bottom{
+    bottom: 0;
+    line-height:0;
+    color: white;
+    background-color: #111;
+    border-top: 2px solid black;
+    transform-origin: top;
+}
+
+
+.segment-overlay.flip .segment-overlay-top{
+    animation: flip-top 0.8s linear;
+}
+.segment-overlay.flip .segment-overlay-bottom{
+    animation: flip-bottom 0.8s linear;
+}
+
+
+
+/* css animation */
+@keyframes flip-top{
+    0% {/*at 0% of the animation...rotated the top-overlay*/
+        transform: rotateX(0deg);
+    }
+    50%, 100% {/*at 100% of the animation....rotataed again at the end of animation*/
+        transform: rotateX(-90deg);
+    }
+}
+
+@keyframes flip-bottom{
+    0%, 50% {/*at 0% of the animation...rotated the bottom-overlay.....and here we mean 50%of the time,animation doesnt occur untill half the time*/
+        transform: rotateX(90deg);
+    }
+    100% {/*at 100% of the animation....rotataed again at the end of animation*/
+        transform: rotateX(0deg);
+    }
+}
+
+
+
+p{
+    font-size: 50px;
+    font-weight: bolder;
+    color: #eee;
+}
+
+
+
+
+
+
+
+
+
+/*
+we have two time segement side by side, 1st timesegement has segment display
+with top and bottom and also an overlay with top and bottom,
+same thing for the 2nd timesegment
+now what you have to get is that the top and bottom are on top of eachother
+so like you just put a height of 50% to it and overflow-hidden
+to hide bottom part but they are still on top of each other........
+its like 4divs on top of eacother for display and overlay---just use absolute to achieve this
+
+segment display bottom and top have different color to create the half effect or just use a border
+
+
+*/
